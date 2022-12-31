@@ -13,6 +13,7 @@ import asyncio
 import platform
 import requests
 import keep_alive
+import sqlite3
 from itertools import cycle
 # -------------INICIO DEL BOT-----------------------------------------------------------------------------------
 status = cycle(["Feliz 2023!", "Soy Bartolo!"])
@@ -105,57 +106,42 @@ json_data = {
     "reglas2.json": {"name": "File 3", "data": {}},
 }
 
-# Load the data from each JSON file into the dictionary
 for file_name, file_data in json_data.items():
     with open(file_name, "r") as f:
         file_data["data"] = json.load(f)
-
 
 @client.command()
 async def embed(ctx, file_name: str, aliases=["send","emb"]):
   await ctx.message.delete()
   await asyncio.sleep(1)
   file_name = file_name + ".json"
-# Load the JSON file
+# Load JSON file
   with open(file_name, 'r') as file:
     if file_name not in json_data:
         await ctx.send("Archivo inválido")
         return
-
-# Extract the necessary data from the JSON file
+      
   data = json_data[file_name]["data"]
   embeds = data['embeds']
 
   # Iterate through each embed in the list
   for embed_data in embeds:
-        # Extract the necessary data for the embed
         fields = embed_data.get('fields', [])
         title = embed_data.get('title', '')
         description = embed_data.get('description', '')
         color = embed_data.get('color', 0)
-
-
-        # Create the embed using the extracted data
         embed = Embed(title=title, description=description, color=color)
-
-        # Add the fields to the embed
         for field in fields:
             name = field['name']
             value = field['value']
             inline = field['inline']
             embed.add_field(name=name, value=value, inline=inline)
-
-        # Check if there is an image in the embed data
         if 'image' in embed_data:
             image_url = embed_data['image']['url']
             embed.set_image(url=image_url)
-
-        # Check if there is a footer in the embed data
         if 'footer' in embed_data:
             footer_text = embed_data['footer']['text']
             embed.set_footer(text=footer_text)
-
-        # Send the embed to the channel where the command was used
         await ctx.send(embed=embed)
         
         
@@ -176,45 +162,55 @@ async def rs(ctx, title: str, description: str, field_value_1: str, field_value_
   
 # --------------------------------------------------------------------------------
 
-@client.command()
-async def paleta(ctx):
+#@client.command()
+#async def paleta(ctx, num_colors: int = None):
+    #if num_colors is None:
+        #num_colors = random.randint(4, 8)
     
-    response = requests.get(f"https://lospec.com/palette-list/json?count=1")
-    if response.status_code != 200:
-        await ctx.send("Hubo un error al obtener la paleta de colores. Por favor, inténtalo de nuevo más tarde.")
-        return
+    #response = requests.get(f"https://lospec.com/palette-list/json?count={num_colors}random=true")
+    #if response.status_code != 200:
+        #await ctx.send("Hubo un error al obtener la paleta de colores. Por favor, inténtalo de nuevo más tarde.")
+        #return
     
-    data = response.json()
-    if data.get("error"):
-        await ctx.send("No se encontró ninguna paleta con esa cantidad de colores. Por favor, elige una cantidad diferente.")
-        return
+    #data = response.json()
+    #if data.get("error"):
+        #await ctx.send("No se encontró ninguna paleta con esa cantidad de colores. Por favor, elige una cantidad diferente.")
+        #return
     
-    palette = data[0]
-    color_palette = palette["colors"]
-    palette_name = palette["name"]
-    palette_creator = palette["author"]
+    #palette = data[0]
+    #color_palette = palette["colors"]
+    #palette_name = palette["name"]
+    #palette_creator = palette["author"]
 
   
-    image = Image.new("RGBA", (1020, 400), (255, 255, 255, 0))
-    draw = ImageDraw.Draw(image)
-    x, y = 0, 0
-    width = (1000 - (12 * (num_colors - 1))) // num_colors
-    radius = 20 
-    for color in color_palette:
-        draw.rounded_rectangle((x, y, x+width, y+396), radius, fill=color)
-        x += width + 14
+    #image = Image.new("RGBA", (1020, 400), (255, 255, 255, 0))
+    #draw = ImageDraw.Draw(image)
+    #x, y = 0, 0
+    #width = (1000 - (12 * (num_colors - 1))) // num_colors
+    #radius = 20 
+    #for color in color_palette:
+        #draw.rounded_rectangle((x, y, x+width, y+396), radius, fill=color)
+        #x += width + 14
         
-    image.save("LOSPEC_palette.png")
+    #image.save("LOSPEC_palette.png")
+    #embed = discord.Embed(title=palette_name, description=f"La paleta de colores llamada {palette_name} fue creada por {palette_creator} y tiene {num_colors} colores diferentes. Cada uno de estos colores ha sido cuidadosamente seleccionado y combinado para crear una paleta única y atractiva. ¡Hazle honor a esta paleta en tu próximo dibujo!", color=0xff42e6)
+    #embed.add_field(name="Creador de la paleta:", value=palette_creator, inline=False)
+    #embed.set_image(url="attachment://LOSPEC_palette.png")
+    #with open("LOSPEC_palette.png", "rb") as f:
+        #await ctx.send(file=discord.File(f, filename="LOSPEC_palette.png"), embed=embed)
+    #os.remove("LOSPEC_palette.png")
 
-    # Create an embed with the palette data
-    embed = discord.Embed(title=palette_name, description=f"La paleta de colores llamada {palette_name} fue creada por {palette_creator} y tiene {num_colors} colores diferentes. Cada uno de estos colores ha sido cuidadosamente seleccionado y combinado para crear una paleta única y atractiva. ¡Hazle honor a esta paleta en tu próximo dibujo!", color=0xff42e6)
-    embed.add_field(name="Creador de la paleta:", value=palette_creator, inline=False)
-    embed.set_image(url="attachment://LOSPEC_palette.png")
-    with open("LOSPEC_palette.png", "rb") as f:
-        await ctx.send(file=discord.File(f, filename="LOSPEC_palette.png"), embed=embed)
-    os.remove("LOSPEC_palette.png")
-
-
+num_colors = random.randint(4, 8)
+response = requests.get(f"https://lospec.com/palette-list/load?colorNumberFilterType=exact&colorNumber={num_colors}&page=0&tag=&sortingType=default")
+@client.command()
+async def paleta(ctx):
+  data = response.json()
+  palette = data["palettes"][0]
+  slug = palette["slug"]
+  title = slug.split("-")[-1].strip()
+  print(palette, slug, title)
+   # ctx.send(data)
+  
 
 
 
