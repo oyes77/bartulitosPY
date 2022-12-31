@@ -1,0 +1,61 @@
+{
+    "embeds": [
+        {
+            "fields": [
+                {
+                    "name": "Ha llegado la Navidad 🎅",
+                    "value": "<:B7:1041479461352263740> Un nuevo evento se estrena! Lee más sobre el secret santa en <#1033185974550802512>",
+                    "inline": true
+                },
+                {
+                    "name": "Actualización de Colores 🎨",
+                    "value": "<:B1:1041479439705456731> primera sorpresa: Colores de temporada!\n<@&1043978618486935583> <@&1043978630679760990> <@&1043978635285102592> \npuedes obtenerlos en ",
+                    "inline": true
+                },
+                {
+                    "name": "ㅤ",
+                    "value": "<:Empty:1041479039904387192>",
+                    "inline": true
+                },
+                {
+                    "name": "Proyecto DeAh! 🍜",
+                    "value": "<:B1:1041479439705456731> Para proteger al mundo de la devastación.  \nPara unir artistas dentro de nuestra nación.\nPara comisionar los furros en Inglés y Español.\nPara extender nuestros dollars hasta las estrellas.\n¡El Equipo DeAh viajando a la velocidad de la luz! ",
+                    "inline": true
+                },
+                {
+                    "name": "Nuevos Emojis 😳",
+                    "value": "<:B7:1041479461352263740> Como los que puso Oka en el mensaje anterior, y muchos más que añadiré periódicamente!",
+                    "inline": true
+                },
+                {
+                    "name": "ㅤ",
+                    "value": "<:Empty:1041479039904387192>",
+                    "inline": false
+                },
+                {
+                    "name": "ㅤㅤㅤㅤㅤ",
+                    "value": "<:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238><:D1:1041479287674511380><:D7:1041479295492702238>",
+                    "inline": false
+                },
+                {
+                    "name": "Nuevos Bots 🤖",
+                    "value": "<@228537642583588864> Finalmente! un bot de música FUNCIONAL -.-\n<@439205512425504771> para truquitos de imágenes! si necesitan ayuda, preguntenle a neil <:likeaboss:965051620939399278>",
+                    "inline": false
+                }
+            ],
+            "title": "**Update 3.7**",
+            "description": "**It's FINALLY chrismas!**\n\n",
+            "color": 14440821,
+            "footer": {
+                "text": "gracias oka por la rima XD"
+            },
+            "author": {
+                "name": "Galio del barrio, con un pequeño update!"
+            }
+        }
+    ],
+    "components": [],
+    "username": "¡Bartolo Update!",
+    "avatar_url": "https://cdn.discordapp.com/avatars/897531437497061436/8809f3d28f63287091e46a612fe77061.webp",
+    "content": "@everyone"
+}
