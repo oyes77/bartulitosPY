@@ -15,10 +15,13 @@ import requests
 import keep_alive
 import sqlite3
 from itertools import cycle
-# -------------INICIO DEL BOT-----------------------------------------------------------------------------------
-status = cycle(["Feliz 2023!", "Soy Bartolo!"])
+# -------------INICIO DEL BOT--------------------------------------------------------------------------
+try:
+    bot.start(token)
+except:
+    os.system("kill 1")
 
-                                 
+
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or("B!", "b!"), case_insensitive=True, intents = discord.Intents.all())
 # client.remove_command("send_embed")
@@ -30,15 +33,12 @@ async def on_ready():
     print(f"SINCRONISAOS {len(synced)} COMANDOS PAPÁAAAA")
   except exception as t:
     print(t)
-  
-  @tasks.loop(seconds=10)
-  async def change_status():
-    await change_status.start()
-    await bot.change_presence(activity=discord.Game(next(status)))
 
 
 
-
+#try:
+  #response = requests.get(url, timeout=10)
+#except requests.exceptions.RequestException as e:
 # IMAGE LISTS ----------------------------------------------------------------------------------------
   
 image_compositions = ['en primer plano', 'en segundo plano', 'de cerca', 'de lejos', 'desde arriba', 'desde abajo', 'a través de una ventana', 'a través de un espejo', 'a través de una ventana rota', 'a través de una pared', 'a través de un túnel', 'a través de una puerta', 'a través de una reja', 'a través de un agujero', 'a través de una malla', 'a través de una cortina', 'en un ángulo', 'en diagonal', 'en línea recta', 'en forma de espiral', 'en forma de onda', 'en forma de curva', 'en forma de círculo', 'en forma de estrella', 'en forma de cuadro', 'en forma de triángulo', 'en forma de rombo', 'en forma de hexágono', 'en forma de octágono', 'en forma de cónica', 'en forma de cono', 'en forma de esfera', 'en forma de cilindro', 'en forma de cubo', 'en forma de prisma', 'en forma de pirámide']
@@ -162,55 +162,7 @@ async def rs(ctx, title: str, description: str, field_value_1: str, field_value_
   
 # --------------------------------------------------------------------------------
 
-#@client.command()
-#async def paleta(ctx, num_colors: int = None):
-    #if num_colors is None:
-        #num_colors = random.randint(4, 8)
-    
-    #response = requests.get(f"https://lospec.com/palette-list/json?count={num_colors}random=true")
-    #if response.status_code != 200:
-        #await ctx.send("Hubo un error al obtener la paleta de colores. Por favor, inténtalo de nuevo más tarde.")
-        #return
-    
-    #data = response.json()
-    #if data.get("error"):
-        #await ctx.send("No se encontró ninguna paleta con esa cantidad de colores. Por favor, elige una cantidad diferente.")
-        #return
-    
-    #palette = data[0]
-    #color_palette = palette["colors"]
-    #palette_name = palette["name"]
-    #palette_creator = palette["author"]
 
-  
-    #image = Image.new("RGBA", (1020, 400), (255, 255, 255, 0))
-    #draw = ImageDraw.Draw(image)
-    #x, y = 0, 0
-    #width = (1000 - (12 * (num_colors - 1))) // num_colors
-    #radius = 20 
-    #for color in color_palette:
-        #draw.rounded_rectangle((x, y, x+width, y+396), radius, fill=color)
-        #x += width + 14
-        
-    #image.save("LOSPEC_palette.png")
-    #embed = discord.Embed(title=palette_name, description=f"La paleta de colores llamada {palette_name} fue creada por {palette_creator} y tiene {num_colors} colores diferentes. Cada uno de estos colores ha sido cuidadosamente seleccionado y combinado para crear una paleta única y atractiva. ¡Hazle honor a esta paleta en tu próximo dibujo!", color=0xff42e6)
-    #embed.add_field(name="Creador de la paleta:", value=palette_creator, inline=False)
-    #embed.set_image(url="attachment://LOSPEC_palette.png")
-    #with open("LOSPEC_palette.png", "rb") as f:
-        #await ctx.send(file=discord.File(f, filename="LOSPEC_palette.png"), embed=embed)
-    #os.remove("LOSPEC_palette.png")
-
-num_colors = random.randint(4, 8)
-response = requests.get(f"https://lospec.com/palette-list/load?colorNumberFilterType=exact&colorNumber={num_colors}&page=0&tag=&sortingType=default")
-@client.command()
-async def paleta(ctx):
-  data = response.json()
-  palette = data["palettes"][0]
-  slug = palette["slug"]
-  title = slug.split("-")[-1].strip()
-  print(palette, slug, title)
-   # ctx.send(data)
-  
 
 
 
